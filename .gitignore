@@ -5,3 +5,6 @@ C++/*
 
 # Ignore - java
 Java/*.class
+
+# Ignoge - .vscode
+.vscode/*
