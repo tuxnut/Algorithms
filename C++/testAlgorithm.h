@@ -7,7 +7,7 @@ void testSortAlgorithm(int algo_enum) {
     for(unsigned i = 0; i < TEST_NB_VECTOR; i++) {
         std::vector<int> vec;
     
-        for(unsigned i = 0; i < TEST_ARRAY_LENGTH; i++) {
+        for(unsigned j = 0; j < TEST_ARRAY_LENGTH; j++) {
             vec.push_back(std::rand() % TEST_ARRAY_MAX_VALUE);
         }
 
@@ -38,8 +38,10 @@ void testSortAlgorithm(int algo_enum) {
             std::cout << "Algo ERROR" << std::endl;
             break;
         }
+
+        // std::cout << "array " << i << std::endl;
         std::chrono::duration<double> elapsed = finish - start;
-        execTime.push_back(elapsed.count());
+        execTime.push_back(elapsed.count() * 1000);
     }
 
     double avgExecutionTime = 0;
@@ -51,7 +53,7 @@ void testSortAlgorithm(int algo_enum) {
         maxExecutionTime = max(value, maxExecutionTime);
     }
     avgExecutionTime /= TEST_NB_VECTOR;
-    std::cout << "Average Execution Time: " << avgExecutionTime * 1000 << "ms" << std::endl;
-    std::cout << "Minimum Execution Time: " << minExecutionTime * 1000 << "ms" << std::endl;
-    std::cout << "Maximum Execution Time: " << maxExecutionTime * 1000 << "ms" << std::endl;
+    std::cout << "Average Execution Time: " << avgExecutionTime  << " ms" << std::endl;
+    std::cout << "Minimum Execution Time: " << minExecutionTime  << " ms" << std::endl;
+    std::cout << "Maximum Execution Time: " << maxExecutionTime  << " ms" << std::endl;
 }

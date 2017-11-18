@@ -2,41 +2,7 @@ import java.util.*;
 import java.lang.Math;
 
 public class SortingAlgorithms {
-    private static int TEST_ARR_LENGTH = 5;
-    private static int TEST_ARR_MAX_VALUE = 100;
-
-    private static void displayArray(int[] arr) {
-        for(int i = 0; i < arr.length; i++) {
-            System.out.printf("%d\t", arr[i]);
-        }
-        System.out.println("");
-    }
-
-    private static int getIndexMin(int[] arr) {
-        int min = arr[0];
-        int index = 0;
-        for(int i = 1; i < arr.length; i++) {
-            if(arr[i] < min) {
-                min = arr[i];
-                index = i;
-            }
-        }
-        return index;
-    }
-
-    private static int getIndexMax(int[] arr) {
-        int max = arr[0];
-        int index = 0;
-        for(int i = 1; i < arr.length; i++) {
-            if(arr[i] > max) {
-                max = arr[i];
-                index = i;
-            }
-        }
-        return index;
-    }
-
-    private static int[] selectionSort(int[] arr) {
+    public static void selectionSort(int[] arr) {
         for(int i = 0; i < arr.length - 1; i++) {
             int indexMin = i;
             for(int j = i + 1; j < arr.length; j++) {
@@ -49,10 +15,9 @@ public class SortingAlgorithms {
             arr[i] = arr[indexMin];
             arr[indexMin] = tmp;
         }
-        return arr;
     }
 
-    public static int[] bubbleSort(int[] arr) {
+    public static void bubbleSort(int[] arr) {
         boolean sorting = false;
         int cpt = 0;
         do {
@@ -70,10 +35,9 @@ public class SortingAlgorithms {
             sorting = !isSorted;
         } while (sorting);
         System.out.printf("Sorted in %d loops\n", cpt);
-        return arr;
     }
 
-    public static int[] insertionSort(int[] arr) {
+    public static void insertionSort(int[] arr) {
         for(int i = 1; i < arr.length; i++) {
             int j = i;
             while (j > 0 && arr[j] < arr [j-1]) {
@@ -83,24 +47,40 @@ public class SortingAlgorithms {
                 j--;
             }
         }
-        return arr;
     }
+
     public static void main(String[] args) {
-        int[] arr = new int[TEST_ARR_LENGTH];
+        boolean test = false;
 
-        for(int i = 0; i < TEST_ARR_LENGTH; i++) {
-            arr[i] = (int)(Math.random() * TEST_ARR_MAX_VALUE);
+        if(!test) {
+            final int ARR_LENGTH = 5000;
+            int[] arr = new int[ARR_LENGTH];
+            
+            for(int i = 0; i < ARR_LENGTH; i++) {
+                arr[i] = (int)(Math.random() * 100);
+            }
+            
+            Utility.displayArray(arr);
+            double start = System.nanoTime();
+            
+            selectionSort(arr);
+            // bubbleSort(arr);
+            // insertionSort(arr);
+            
+            double finish = System.nanoTime();
+            
+            Utility.displayArray(arr);
+            Utility.testSort(arr);
+            
+            System.out.printf("Execution time: %.3f us\n", (finish - start)/1000);
+            
+        } else {
+            double start = System.nanoTime();
+
+            Utility.testSortAlgorithm(Utility.SELECTION);
+            
+            double finish = System.nanoTime();
+            System.out.printf("Execution time: %.3f s\n", (finish - start) / 1000000000);
         }
-
-        displayArray(arr);
-        long start = System.nanoTime();
-        
-        // selectionSort(arr);
-        // bubbleSort(arr);
-        insertionSort(arr);
-
-        long end = System.nanoTime();
-        displayArray(arr);
-        System.out.printf("Execution time: %d us\n", (end - start)/1000);
     }
 }

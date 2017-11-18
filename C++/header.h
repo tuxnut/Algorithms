@@ -3,6 +3,7 @@
 #include <iterator>
 #include <chrono>
 
+
 #define TEST_ARRAY_LENGTH 5000
 #define TEST_ARRAY_MAX_VALUE 10000
 #define TEST_NB_VECTOR 50
@@ -20,6 +21,13 @@ enum ALGO {
 const void displayVector(std::vector<int> &vec) {
     for(auto const& value: vec) {
         std::cout << value << "\t";
+    }
+    std::cout << std::endl;
+}
+
+const void displayArray(int arr[], const unsigned length) {
+    for(unsigned i = 0; i < length; i++) {
+        std::cout << arr[i] << "\t";
     }
     std::cout << std::endl;
 }
@@ -83,10 +91,10 @@ const bool testSort(std::vector<int> vec) {
 
 void testSortAlgorithm(int algo_enum);
 /// Tests with LENGTH = 5000 and MAX_VALUE = 10000 on 50 vector
-void selectionSort(std::vector<int> &vec);      // 148.713ms
-void bubbleSort(std::vector<int> &vec);         // 251.325ms
-void insertionSort(std::vector<int> &vec);      // 87.7155ms
-void mergeSort(std::vector<int>::iterator begin, std::vector<int>::iterator end);   // 6.39154ms
-void merge(std::vector<int>::iterator begin, std::vector<int>::iterator middle, std::vector<int>::iterator end);
-void quickSort(std::vector<int>::iterator begin, std::vector<int>::iterator end);   // 1.90515ms
+inline void selectionSort(std::vector<int> &vec);      // 148.713 ms
+inline void bubbleSort(std::vector<int> &vec);         // 251.325 ms
+inline void insertionSort(std::vector<int> &vec);      // 87.7155 ms
+inline void mergeSort(std::vector<int>::iterator begin, std::vector<int>::iterator end);   // 6.39154 ms
+inline void merge(std::vector<int>::iterator begin, std::vector<int>::iterator middle, std::vector<int>::iterator end);
+inline void quickSort(std::vector<int>::iterator begin, std::vector<int>::iterator end);   // 1.90515 ms
 std::vector<int>::iterator partition(std::vector<int>::iterator begin, std::vector<int>::iterator end);

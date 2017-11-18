@@ -3,12 +3,31 @@
 /* In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is picked and moved to the sorted subarray.*/
 void selectionSort(std::vector<int> &vec) {
     for(unsigned i = 0; i < vec.size() - 1; i++) {
-        // find minimum in unsorted array
-        int indexMin = getIndexMin(vec.begin() + i, vec.end());
-        // move the minimum found in the sorted array
-        const int tmp = vec[indexMin+i];
-        vec[indexMin+i] = vec[i];
-        vec[i] = tmp;
+        int indexMin = i;
+        for(unsigned j = i + 1; j < vec.size(); j++) {
+            indexMin = (vec[j] < vec[indexMin]) ? j : indexMin;
+        }
+        if(indexMin == i) {
+            continue;
+        }
+        int tmp = vec[i];
+        vec[i] = vec[indexMin];
+        vec[indexMin] = tmp;
+    }
+}
+
+void selectionSort(int arr[], int length) {
+    for(unsigned i = 0; i < length - 1; i++) {
+        int indexMin = i;
+        for(unsigned j = i; j < length; j++) {
+            indexMin = (arr[j] < arr[indexMin]) ? j : indexMin;
+        }
+        if(indexMin == i) {
+            continue;
+        }
+        int tmp = arr[i];
+        arr[i] = arr[indexMin];
+        arr[indexMin] = tmp;
     }
 }
 
@@ -125,32 +144,52 @@ std::vector<int>::iterator partition(std::vector<int>::iterator begin, std::vect
     return middle;
 }
 
+// #define TEST
 
 int main(int argc, char **argv) {
-    std::srand(std::time(0));
+#ifndef TEST
+    // std::srand(std::time(0));
     
-    std::vector<int> vec;
+    // std::vector<int> vec;
     
-    for(unsigned i = 0; i < 5; i++) {
-        vec.push_back(std::rand() % 100);
+    // for(unsigned i = 0; i < 500; i++) {
+    //     vec.push_back(std::rand() % 100);
+    // }
+
+    const unsigned ARR_LENGTH = 5000;
+    
+    int arr[ARR_LENGTH];
+
+    for(unsigned i = 0; i <ARR_LENGTH; i++) {
+        arr[i] = std::rand() % 100;
     }
 
-    displayVector(vec);
+    // displayArray(arr, ARR_LENGTH);
+
+    // displayVector(vec);
     const auto start = std::chrono::high_resolution_clock::now();
+    selectionSort(arr, ARR_LENGTH);
     // selectionSort(vec);
     // bubbleSort(vec);
     // insertionSort(vec);
     // mergeSort(vec.begin(), vec.end());
     // quickSort(vec.begin(), vec.end());
-
-    // testSortAlgorithm(QUICK);
     const auto finish = std::chrono::high_resolution_clock::now();
+    // displayArray(arr, ARR_LENGTH);
 
-    displayVector(vec);
-    testSort(vec);
+    // displayVector(vec);
+    // testSort(vec);
 
     const std::chrono::duration<double> elapsed = finish - start;
     std::cout << "Execution time: " << elapsed.count()*1000000 << "us" << std::endl;
-    // std::cout << "Execution time: " << elapsed.count() << "s" << std::endl;
+#else
+    const auto start = std::chrono::high_resolution_clock::now();
+
+    testSortAlgorithm(SELECTION);
+    
+    const auto finish = std::chrono::high_resolution_clock::now();
+    const std::chrono::duration<double> elapsed = finish - start;
+    std::cout << "Execution time: " << elapsed.count()*1000 << " ms" << std::endl;
+#endif
     return 0;
 }
