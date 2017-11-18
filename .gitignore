@@ -1,0 +1,7 @@
+# Ignore - cpp
+C++/*
+!C++/*.h
+!C++/*.cpp
+
+# Ignore - java
+Java/*.class
