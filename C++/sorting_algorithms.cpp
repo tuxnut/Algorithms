@@ -154,8 +154,8 @@ void mergeSort(int arr[], const int first, const int last) {
 }
 
 void merge(int arr[], const int first, const int middle, const int last) {
-    unsigned left_length = middle - first + 1;
-    unsigned right_length = last - middle;
+    const unsigned left_length = middle - first + 1;
+    const unsigned right_length = last - middle;
     int left[left_length];
     int right[right_length];
 
@@ -249,32 +249,34 @@ const int partition(int arr[], const int first, const int last) {
 
     return middle;
 }
-// #define TEST
+#define TEST
 
 int main(int argc, char **argv) {
 #ifndef TEST
     std::srand(std::time(0));
     
-    // std::vector<int> vec;
-    // for(unsigned i = 0; i < 5; i++) {
-    //     vec.push_back(std::rand() % 100);
-    // }
+    std::vector<int> vec;
+    for(unsigned i = 0; i < 5000; i++) {
+        vec.push_back(std::rand() % 1000);
+    }
     // displayVector(vec);
 
     
-    const unsigned ARR_LENGTH = 5;
+    const unsigned ARR_LENGTH = 5000;
     int arr[ARR_LENGTH];
-    for(unsigned i = 0; i <ARR_LENGTH; i++) {
-        arr[i] = std::rand() % 100;
+    for(unsigned i = 0; i < ARR_LENGTH; i++) {
+        arr[i] = std::rand() % 1000;
     }
-    displayArray(arr, ARR_LENGTH);
+    // displayArray(arr, ARR_LENGTH);
 
     const auto start = std::chrono::high_resolution_clock::now();
     // selectionSort(arr, ARR_LENGTH);
     // bubbleSort(arr, ARR_LENGTH);
     // insertionSort(arr, ARR_LENGTH);
     // mergeSort(arr, 0, ARR_LENGTH - 1);
-    quickSort(arr, 0, ARR_LENGTH - 1);
+    // quickSort(arr, 0, ARR_LENGTH - 1);
+
+    // std::sort(vec.begin(), vec.end());
 
     // selectionSort(vec);
     // bubbleSort(vec);
@@ -282,7 +284,8 @@ int main(int argc, char **argv) {
     // mergeSort(vec.begin(), vec.end());
     // quickSort(vec.begin(), vec.end());
     const auto finish = std::chrono::high_resolution_clock::now();
-    displayArray(arr, ARR_LENGTH);
+    // displayArray(arr, ARR_LENGTH);
+    testSort(arr, ARR_LENGTH);
 
     // displayVector(vec);
     // testSort(vec);
@@ -292,7 +295,7 @@ int main(int argc, char **argv) {
 #else
     const auto start = std::chrono::high_resolution_clock::now();
 
-    testSortAlgorithm(QUICK);
+    testSortAlgorithm(INSERTION);
     
     const auto finish = std::chrono::high_resolution_clock::now();
     const std::chrono::duration<double> elapsed = finish - start;

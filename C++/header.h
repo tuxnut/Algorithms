@@ -2,10 +2,11 @@
 #include <vector>
 #include <iterator>
 #include <chrono>
+#include <algorithm>
 
 
-#define TEST_ARRAY_LENGTH 50000
-#define TEST_ARRAY_MAX_VALUE 1000000
+#define TEST_ARRAY_LENGTH 5000
+#define TEST_ARRAY_MAX_VALUE 10000
 #define TEST_NB_VECTOR 50
 #define max(a, b) ((a > b) ? a : b)
 #define min(a, b) ((a < b) ? a : b)

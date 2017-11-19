@@ -9,6 +9,8 @@ public class Utility {
     final static public int SELECTION = 1;
     final static public int BUBBLE = 2;
     final static public int INSERTION = 3;
+    final static public int MERGE = 4;
+    final static public int QUICK = 5;
 
     public static void displayArray(int[] arr) {
         for(int i = 0; i < arr.length; i++) {
@@ -74,6 +76,12 @@ public class Utility {
                 case INSERTION:
                     SortingAlgorithms.insertionSort(arr);
                     break;
+                case MERGE:
+                    SortingAlgorithms.mergeSort(arr, 0, TEST_ARR_LENGTH - 1);
+                    break;
+                case QUICK:
+                    SortingAlgorithms.quickSort(arr, 0, TEST_ARR_LENGTH - 1);
+                    break;
             
                 default:
                     System.exit(0);
@@ -98,8 +106,8 @@ public class Utility {
             maxExecutionTime = (execTime[i] > maxExecutionTime) ? execTime[i] : maxExecutionTime;
         }
         avgExecutionTime /= TEST_NB_VECTOR;
-        System.out.printf("Average Execution Time: %.3f ms\n", avgExecutionTime / 1000000);
-        System.out.printf("Minimum Execution Time: %.3f ms\n", minExecutionTime / 1000000);
-        System.out.printf("Maximum Execution Time: %.3f ms\n", maxExecutionTime / 1000000);
+        System.out.printf("Average Execution Time: %.3f us\n", avgExecutionTime / 1000);
+        System.out.printf("Minimum Execution Time: %.3f us\n", minExecutionTime / 1000);
+        System.out.printf("Maximum Execution Time: %.3f us\n", maxExecutionTime / 1000);
     }
 }

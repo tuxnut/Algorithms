@@ -18,10 +18,10 @@ public class SortingAlgorithms {
     }
 
     public static void bubbleSort(int[] arr) {
-        boolean sorting = false;
+        boolean isSorted = false;
         int cpt = 0;
         do {
-            boolean isSorted = true;
+            isSorted = true;
 
             for(int i = 0; i < arr.length - 1; i++) {
                 if (arr[i] > arr[i+1]) {
@@ -32,8 +32,7 @@ public class SortingAlgorithms {
                 }
             }
             cpt++;
-            sorting = !isSorted;
-        } while (sorting);
+        } while (!isSorted);
         System.out.printf("Sorted in %d loops\n", cpt);
     }
 
@@ -49,11 +48,87 @@ public class SortingAlgorithms {
         }
     }
 
+    public static void mergeSort(int[] arr, final int first, final int last) {
+        if (first < last) {
+            final int middle = first + (last - first) / 2;
+
+            mergeSort(arr, first, middle);
+            mergeSort(arr, middle + 1, last);
+            merge(arr, first, middle, last);
+        }
+    }
+
+    public static void merge(int[] arr, final int first, final int middle,  final int last) {
+        final int left_length = middle - first + 1;
+        final int right_length = last - middle;
+        int[] left = new int[left_length];
+        int[] right = new int[right_length];
+
+        for(int i = 0; i < left_length; i++) {
+            left[i] = arr[first+i];
+        }
+        for(int i = 0; i < right_length; i++) {
+            right[i] = arr[middle+1+i];
+        }
+
+        int i = 0, j = 0, k = first;
+        while (i < left_length && j < right_length) {
+            if(left[i] <= right[j]) {
+                arr[k] = left[i];
+                i++;
+            } else {
+                arr[k] = right[j];
+                j++;
+            }
+            k++;
+        }
+
+        while (i < left_length) {
+            arr[k] = left[i];
+            i++;
+            k++;
+        }
+
+        while (j < right_length) {
+            arr[k] = right[j];
+            j++;
+            k++;
+        }
+    }
+
+    public static void quickSort(int[] arr, final int first, final int last) {
+        if(first < last) {
+            final int middle = partition(arr, first, last);
+
+            quickSort(arr, first, middle - 1);
+            quickSort(arr, middle, last);
+        }
+    }
+
+    public static final int partition(int[] arr, final int first, final int last) {
+        final int pivot = arr[last];
+        int middle = first;
+
+        for(int i = first; i <= last - 1; i++) {
+            if(arr[i] <= pivot) {
+                int tmp = arr[middle];
+                arr[middle] = arr[i];
+                arr[i] = tmp;
+                middle++;
+            }
+        }
+
+        arr[last] = arr[middle];
+        arr[middle] = pivot;
+
+        return middle;
+    }
+
     public static void main(String[] args) {
-        boolean test = false;
+        boolean test = true;
 
         if(!test) {
-            final int ARR_LENGTH = 5000;
+            final int ARR_LENGTH = 5;
             int[] arr = new int[ARR_LENGTH];
             
             for(int i = 0; i < ARR_LENGTH; i++) {
@@ -63,9 +138,11 @@ public class SortingAlgorithms {
             Utility.displayArray(arr);
             double start = System.nanoTime();
             
-            selectionSort(arr);
+            // selectionSort(arr);
             // bubbleSort(arr);
             // insertionSort(arr);
+            // mergeSort(arr, 0, ARR_LENGTH - 1);
+            quickSort(arr, 0, ARR_LENGTH - 1);
             
             double finish = System.nanoTime();
             
@@ -77,7 +154,7 @@ public class SortingAlgorithms {
         } else {
             double start = System.nanoTime();
 
-            Utility.testSortAlgorithm(Utility.SELECTION);
+            Utility.testSortAlgorithm(Utility.INSERTION);
             
             double finish = System.nanoTime();
             System.out.printf("Execution time: %.3f s\n", (finish - start) / 1000000000);
