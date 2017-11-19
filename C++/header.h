@@ -4,8 +4,8 @@
 #include <chrono>
 
 
-#define TEST_ARRAY_LENGTH 5000
-#define TEST_ARRAY_MAX_VALUE 10000
+#define TEST_ARRAY_LENGTH 50000
+#define TEST_ARRAY_MAX_VALUE 1000000
 #define TEST_NB_VECTOR 50
 #define max(a, b) ((a > b) ? a : b)
 #define min(a, b) ((a < b) ? a : b)
@@ -89,12 +89,31 @@ const bool testSort(std::vector<int> vec) {
     return isWellSorted;
 }
 
+const bool testSort(int arr[], const unsigned length) {
+    bool isWellSorted = true;
+    for(unsigned i = 1; i < length; i++) {
+        if(arr[i+1] < arr[i]) {
+            isWellSorted = false;
+            std::cout << "At index: " << i << "\t" << arr[i+1] << " < " << arr[i] << std::endl;
+        }
+    }
+    return isWellSorted;
+}
+
 void testSortAlgorithm(int algo_enum);
-/// Tests with LENGTH = 5000 and MAX_VALUE = 10000 on 50 vector
-inline void selectionSort(std::vector<int> &vec);      // 148.713 ms
-inline void bubbleSort(std::vector<int> &vec);         // 251.325 ms
-inline void insertionSort(std::vector<int> &vec);      // 87.7155 ms
-inline void mergeSort(std::vector<int>::iterator begin, std::vector<int>::iterator end);   // 6.39154 ms
+
+void selectionSort(int arr[], int length);
+void bubbleSort(int arr[], int length);
+void insertionSort(int arr[], int length);
+void mergeSort(int arr[], const int first, const int last);
+inline void merge(int arr[], const int first, const int middle, const int last);
+void quickSort(int arr[], const int first, const int last);
+inline const int partition(int arr[], int first, int last);
+
+void selectionSort(std::vector<int> &vec);      // 148.713 ms
+void bubbleSort(std::vector<int> &vec);         // 251.325 ms
+void insertionSort(std::vector<int> &vec);      // 87.7155 ms
+void mergeSort(std::vector<int>::iterator begin, std::vector<int>::iterator end);   // 6.39154 ms
 inline void merge(std::vector<int>::iterator begin, std::vector<int>::iterator middle, std::vector<int>::iterator end);
-inline void quickSort(std::vector<int>::iterator begin, std::vector<int>::iterator end);   // 1.90515 ms
-std::vector<int>::iterator partition(std::vector<int>::iterator begin, std::vector<int>::iterator end);
+void quickSort(std::vector<int>::iterator begin, std::vector<int>::iterator end);   // 1.90515 ms
+inline std::vector<int>::iterator partition(std::vector<int>::iterator begin, std::vector<int>::iterator end);

@@ -5,36 +5,35 @@ void testSortAlgorithm(int algo_enum) {
     std::srand(std::time(0));
 
     for(unsigned i = 0; i < TEST_NB_VECTOR; i++) {
-        std::vector<int> vec;
-    
-        for(unsigned j = 0; j < TEST_ARRAY_LENGTH; j++) {
-            vec.push_back(std::rand() % TEST_ARRAY_MAX_VALUE);
+        int arr[TEST_ARRAY_LENGTH];
+        for(unsigned i = 0; i < TEST_ARRAY_LENGTH; i++) {
+            arr[i] = std::rand() % 100;
         }
 
         auto start = std::chrono::high_resolution_clock::now();
 
         switch (algo_enum) {
             case SELECTION:
-                selectionSort(vec);
+                selectionSort(arr, TEST_ARRAY_LENGTH);
                 break;
             case BUBBLE:
-                bubbleSort(vec);
+                bubbleSort(arr, TEST_ARRAY_LENGTH);
                 break;
             case INSERTION:
-                insertionSort(vec);
+                insertionSort(arr, TEST_ARRAY_LENGTH);
                 break;
             case MERGE:
-                mergeSort(vec.begin(), vec.end());
+                mergeSort(arr, 0, TEST_ARRAY_LENGTH - 1);
                 break;
             case QUICK:
-                quickSort(vec.begin(), vec.end());
+                quickSort(arr, 0, TEST_ARRAY_LENGTH - 1);
         default:
             exit;
         }
 
         auto finish = std::chrono::high_resolution_clock::now();
 
-        if(!testSort(vec)) {
+        if(!testSort(arr, TEST_ARRAY_LENGTH)) {
             std::cout << "Algo ERROR" << std::endl;
             break;
         }
