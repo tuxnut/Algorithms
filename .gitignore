@@ -8,3 +8,6 @@ Java/*.class
 
 # Ignoge - .vscode
 .vscode
+
+# Ignore - Python
+python/__pycache__
