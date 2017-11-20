@@ -295,7 +295,7 @@ int main(int argc, char **argv) {
 #else
     const auto start = std::chrono::high_resolution_clock::now();
 
-    testSortAlgorithm(INSERTION);
+    testSortAlgorithm(SELECTION);
     
     const auto finish = std::chrono::high_resolution_clock::now();
     const std::chrono::duration<double> elapsed = finish - start;

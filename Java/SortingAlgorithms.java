@@ -154,7 +154,7 @@ public class SortingAlgorithms {
         } else {
             double start = System.nanoTime();
 
-            Utility.testSortAlgorithm(Utility.INSERTION);
+            Utility.testSortAlgorithm(Utility.SELECTION);
             
             double finish = System.nanoTime();
             System.out.printf("Execution time: %.3f s\n", (finish - start) / 1000000000);
