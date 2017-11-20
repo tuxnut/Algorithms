@@ -1,5 +1,6 @@
 import numpy as np
 import time
+import testSortingAlgorithm
 
 def selectionSort(arr):
     for i in range(len(arr) - 1):
@@ -44,22 +45,35 @@ def insertionSort(arr):
     return arr
 
 def main():
-    TEST_ARR_LENGTH = 5
-    TEST_ARR_MAX_VALUE = 100
-    arr = [0] * TEST_ARR_LENGTH
+    test = True;
 
-    for i in range(len(arr)):
-        arr[i] = np.random.randint(0, TEST_ARR_MAX_VALUE)
+    if not test:
+        ARR_LENGTH = 5
+        ARR_MAX_VALUE = 100
+        arr = [0] * ARR_LENGTH
 
-    print(arr)
-    start = time.time()
+        for i in range(len(arr)):
+            arr[i] = np.random.randint(0, ARR_MAX_VALUE)
 
-    # arr = selectionSort(arr)
-    # arr = bubbleSort(arr)
-    arr = insertionSort(arr)
+        print(arr)
+        start = time.time()
 
-    print("Execution time: " + str((time.time() - start) * 1000000) + "us")
-    print(arr)
+        arr = selectionSort(arr)
+        # arr = bubbleSort(arr)
+        # arr = insertionSort(arr)
+
+        finish = time.time()
+        print(arr)
+        testSortingAlgorithm.testSort(arr)
+        print("Execution time: " + str((finish - start) * 1000000) + " us")
+
+    else:
+        start = time.time()
+
+        testSortingAlgorithm.testSortingAlgorithm(testSortingAlgorithm.SELECTION)
+
+        print("Execution time: " + str((time.time() - start)) + " s")
+
 
 if __name__ == '__main__':
     main()
