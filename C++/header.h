@@ -20,7 +20,8 @@ enum ALGO
     QUICK
 };
 
-int randomGenerator() {
+int randomGenerator()
+{
     return std::rand() % MAX_RAND;
 }
 

@@ -13,7 +13,7 @@ public class Utility {
     final static public int QUICK = 5;
 
     public static void displayArray(int[] arr) {
-        for(int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < arr.length; i++) {
             System.out.printf("%d\t", arr[i]);
         }
         System.out.println("");
@@ -22,8 +22,8 @@ public class Utility {
     public static int getIndexMin(int[] arr) {
         int min = arr[0];
         int index = 0;
-        for(int i = 1; i < arr.length; i++) {
-            if(arr[i] < min) {
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] < min) {
                 min = arr[i];
                 index = i;
             }
@@ -34,8 +34,8 @@ public class Utility {
     public static int getIndexMax(int[] arr) {
         int max = arr[0];
         int index = 0;
-        for(int i = 1; i < arr.length; i++) {
-            if(arr[i] > max) {
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] > max) {
                 max = arr[i];
                 index = i;
             }
@@ -45,46 +45,46 @@ public class Utility {
 
     final public static boolean testSort(int[] arr) {
         boolean isWellSorted = true;
-        for(int i = 0; i < arr.length - 1; i++) {
-            if (arr[i+1] < arr[i]) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            if (arr[i + 1] < arr[i]) {
                 isWellSorted = false;
-                System.out.printf("At index: %d\t%d < %d\n", i, arr[i+1], arr[i]);
+                System.out.printf("At index: %d\t%d < %d\n", i, arr[i + 1], arr[i]);
             }
         }
         return isWellSorted;
-    } 
+    }
 
     public static void testSortAlgorithm(int algo) {
         double[] execTime = new double[TEST_NB_VECTOR];
 
-        for(int i = 0; i < TEST_NB_VECTOR; i++) {
+        for (int i = 0; i < TEST_NB_VECTOR; i++) {
             int[] arr = new int[TEST_ARR_LENGTH];
 
-            for(int j = 0; j < TEST_ARR_LENGTH; j++) {
-                arr[j] = (int)(Math.random() * TEST_ARR_MAX_VALUE);
+            for (int j = 0; j < TEST_ARR_LENGTH; j++) {
+                arr[j] = (int) (Math.random() * TEST_ARR_MAX_VALUE);
             }
 
             double start = System.nanoTime();
 
             switch (algo) {
-                case SELECTION:
-                    SortingAlgorithms.selectionSort(arr);
-                    break;
-                case BUBBLE:
-                    SortingAlgorithms.bubbleSort(arr);
-                    break;
-                case INSERTION:
-                    SortingAlgorithms.insertionSort(arr);
-                    break;
-                case MERGE:
-                    SortingAlgorithms.mergeSort(arr, 0, TEST_ARR_LENGTH - 1);
-                    break;
-                case QUICK:
-                    SortingAlgorithms.quickSort(arr, 0, TEST_ARR_LENGTH - 1);
-                    break;
-            
-                default:
-                    System.exit(0);
+            case SELECTION:
+                SortingAlgorithms.selectionSort(arr);
+                break;
+            case BUBBLE:
+                SortingAlgorithms.bubbleSort(arr);
+                break;
+            case INSERTION:
+                SortingAlgorithms.insertionSort(arr);
+                break;
+            case MERGE:
+                SortingAlgorithms.mergeSort(arr, 0, TEST_ARR_LENGTH - 1);
+                break;
+            case QUICK:
+                SortingAlgorithms.quickSort(arr, 0, TEST_ARR_LENGTH - 1);
+                break;
+
+            default:
+                System.exit(0);
             }
 
             double finish = System.nanoTime();
@@ -100,7 +100,7 @@ public class Utility {
         double avgExecutionTime = 0;
         double minExecutionTime = execTime[0];
         double maxExecutionTime = execTime[0];
-        for(int i = 0; i < execTime.length; i++) {
+        for (int i = 0; i < execTime.length; i++) {
             avgExecutionTime += execTime[i];
             minExecutionTime = (execTime[i] < minExecutionTime) ? execTime[i] : minExecutionTime;
             maxExecutionTime = (execTime[i] > maxExecutionTime) ? execTime[i] : maxExecutionTime;
