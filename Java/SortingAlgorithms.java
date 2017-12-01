@@ -125,17 +125,17 @@ public class SortingAlgorithms {
     }
 
     public static void main(String[] args) {
-        boolean test = true;
+        boolean test = false;
 
         if (!test) {
-            final int ARR_LENGTH = 5;
+            final int ARR_LENGTH = 1000000;
             int[] arr = new int[ARR_LENGTH];
 
             for (int i = 0; i < ARR_LENGTH; i++) {
                 arr[i] = (int) (Math.random() * 100);
             }
 
-            Utility.displayArray(arr);
+            // Utility.displayArray(arr);
             double start = System.nanoTime();
 
             // selectionSort(arr);
@@ -146,7 +146,7 @@ public class SortingAlgorithms {
 
             double finish = System.nanoTime();
 
-            Utility.displayArray(arr);
+            // Utility.displayArray(arr);
             Utility.testSort(arr);
 
             System.out.printf("Execution time: %.3f us\n", (finish - start) / 1000);

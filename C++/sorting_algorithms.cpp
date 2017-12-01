@@ -20,7 +20,7 @@ void selectionSort(std::vector<int> &vec)
     }
 }
 
-void selectionSort(int arr[], int length)
+void selectionSort(int arr[], const long length)
 {
     for (unsigned i = 0; i < length - 1; i++)
     {
@@ -64,7 +64,7 @@ void bubbleSort(std::vector<int> &vec)
     std::cout << "Sorted in " << cpt << " loop." << std::endl;
 }
 
-void bubbleSort(int arr[], int length)
+void bubbleSort(int arr[], const long length)
 {
     bool isSorted = false;
     unsigned cpt = 0;
@@ -103,7 +103,7 @@ void insertionSort(std::vector<int> &vec)
     }
 }
 
-void insertionSort(int arr[], int length)
+void insertionSort(int arr[], const long length)
 {
     for (unsigned i = 1; i < length; i++)
     {
@@ -174,11 +174,11 @@ void merge(std::vector<int>::iterator begin, std::vector<int>::iterator middle, 
     }
 }
 
-void mergeSort(int arr[], const int first, const int last)
+void mergeSort(int arr[], const long first, const long last)
 {
     if (first < last)
     {
-        const unsigned middle = first + (last - first) / 2;
+        long middle = first + (last - first) * 0.5;
 
         mergeSort(arr, first, middle);
         mergeSort(arr, middle + 1, last);
@@ -186,23 +186,23 @@ void mergeSort(int arr[], const int first, const int last)
     }
 }
 
-void merge(int arr[], const int first, const int middle, const int last)
+void merge(int arr[], const long first, const long middle, const long last)
 {
-    const unsigned left_length = middle - first + 1;
-    const unsigned right_length = last - middle;
-    int left[left_length];
-    int right[right_length];
+    long left_length = middle - first + 1;
+    long right_length = last - middle;
+    int *left = (int *)malloc(sizeof(int) * left_length);
+    int *right = (int *)malloc(sizeof(int) * right_length);
 
-    for (unsigned i = 0; i < right_length; i++)
+    for (long i = 0; i < right_length; i++)
     {
         right[i] = arr[middle + 1 + i];
     }
-    for (unsigned i = 0; i < left_length; i++)
+    for (long i = 0; i < left_length; i++)
     {
         left[i] = arr[first + i];
     }
 
-    unsigned i = 0, j = 0, k = first;
+    long i = 0, j = 0, k = first;
     while (i < left_length && j < right_length)
     {
         if (left[i] <= right[j])
@@ -269,23 +269,23 @@ std::vector<int>::iterator partition(std::vector<int>::iterator begin, std::vect
     return middle;
 }
 
-void quickSort(int arr[], const int first, const int last)
+void quickSort(int arr[], const long first, const long last)
 {
     if (first < last)
     {
-        const int middle = partition(arr, first, last);
+        const long middle = partition(arr, first, last);
 
         quickSort(arr, first, middle - 1);
         quickSort(arr, middle, last);
     }
 }
 
-const int partition(int arr[], const int first, const int last)
+const long partition(int arr[], const long first, const long last)
 {
     const int pivot = arr[last];
-    int middle = first;
+    long middle = first;
 
-    for (unsigned i = first; i <= last - 1; i++)
+    for (long i = first; i <= last - 1; i++)
     {
         if (arr[i] <= pivot)
         {
@@ -311,10 +311,8 @@ void countSort(std::vector<int> &vec)
         tmp[value]++;
     }
 
-    // displayVector(tmp);
-
     int index = 0;
-    for (unsigned i = 0; i < tmp.size(); i++)
+    for (long i = 0; i < tmp.size(); i++)
     {
         int occurences = tmp[i];
         while (occurences > 0)
@@ -331,45 +329,61 @@ void countSort(std::vector<int> &vec)
 int main(int argc, char **argv)
 {
 #ifndef TEST
+    bool vector = true;
+
     std::srand(std::time(0));
-    const unsigned ARR_LENGTH = 5;
+    long ARR_LENGTH = std::pow(10, 5);
 
-    std::vector<int> vec(ARR_LENGTH);
-    std::generate(vec.begin(), vec.end(), randomGenerator);
-
-    displayVector(vec);
-
-    int arr[ARR_LENGTH];
-    for (unsigned i = 0; i < ARR_LENGTH; i++)
+    if (vector)
     {
-        arr[i] = randomGenerator();
+        std::vector<int> vec(ARR_LENGTH);
+        std::generate(vec.begin(), vec.end(), randomGenerator);
+
+        // displayVector(vec);
+
+        const auto start = std::chrono::high_resolution_clock::now();
+
+        // std::sort(vec.begin(), vec.end());
+
+        // selectionSort(vec);
+        // bubbleSort(vec);
+        // insertionSort(vec);
+        // mergeSort(vec.begin(), vec.end());
+        // quickSort(vec.begin(), vec.end());
+        countSort(vec);
+        const auto finish = std::chrono::high_resolution_clock::now();
+        // displayVector(vec);
+        testSort(vec);
+        const std::chrono::duration<double> elapsed = finish - start;
+        std::cout << "Execution time: " << elapsed.count() * 1000000 << "us" << std::endl;
+        
+    } else
+    {
+        int *arr = (int *)malloc(ARR_LENGTH * sizeof(int));
+        for (long i = 0; i < ARR_LENGTH; i++)
+        {
+            arr[i] = randomGenerator();
+        }
+
+        // displayArray(arr, ARR_LENGTH);
+
+        const auto start = std::chrono::high_resolution_clock::now();
+        // selectionSort(arr, ARR_LENGTH);
+        // bubbleSort(arr, ARR_LENGTH);
+        // insertionSort(arr, ARR_LENGTH);
+        mergeSort(arr, 0, ARR_LENGTH - 1);
+        // quickSort(arr, 0, ARR_LENGTH - 1);
+
+        const auto finish = std::chrono::high_resolution_clock::now();
+        // displayArray(arr, ARR_LENGTH);
+        // testSort(arr, ARR_LENGTH);
+
+
+        const std::chrono::duration<double> elapsed = finish - start;
+        std::cout << "Execution time: " << elapsed.count() * 1000000 << "us" << std::endl;
     }
-    // displayArray(arr, ARR_LENGTH);
 
-    const auto start = std::chrono::high_resolution_clock::now();
-    // selectionSort(arr, ARR_LENGTH);
-    // bubbleSort(arr, ARR_LENGTH);
-    // insertionSort(arr, ARR_LENGTH);
-    // mergeSort(arr, 0, ARR_LENGTH - 1);
-    // quickSort(arr, 0, ARR_LENGTH - 1);
 
-    // std::sort(vec.begin(), vec.end());
-
-    // selectionSort(vec);
-    // bubbleSort(vec);
-    // insertionSort(vec);
-    // mergeSort(vec.begin(), vec.end());
-    // quickSort(vec.begin(), vec.end());
-    countSort(vec);
-    const auto finish = std::chrono::high_resolution_clock::now();
-    // displayArray(arr, ARR_LENGTH);
-    // testSort(arr, ARR_LENGTH);
-
-    displayVector(vec);
-    // testSort(vec);
-
-    const std::chrono::duration<double> elapsed = finish - start;
-    std::cout << "Execution time: " << elapsed.count() * 1000000 << "us" << std::endl;
 #else
     const auto start = std::chrono::high_resolution_clock::now();
 
@@ -377,7 +391,7 @@ int main(int argc, char **argv)
 
     const auto finish = std::chrono::high_resolution_clock::now();
     const std::chrono::duration<double> elapsed = finish - start;
-    std::cout << "Execution time: " << elapsed.count() * 1000 << " ms" << std::endl;
+    std::cout << "Global Execution time: " << elapsed.count() * 1000 << " ms" << std::endl;
 #endif
     return 0;
 }

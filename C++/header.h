@@ -4,10 +4,10 @@
 #include <chrono>
 #include <algorithm>
 
-#define TEST_ARRAY_LENGTH 50000
+#define TEST_ARRAY_LENGTH 100000
 #define TEST_ARRAY_MAX_VALUE 10000
-#define TEST_NB_VECTOR 1
-#define MAX_RAND 10
+#define TEST_NB_VECTOR 10
+#define MAX_RAND 3500
 #define max(a, b) ((a > b) ? a : b)
 #define min(a, b) ((a < b) ? a : b)
 
@@ -111,15 +111,15 @@ const bool testSort(std::vector<int> vec)
     return isWellSorted;
 }
 
-const bool testSort(int arr[], const unsigned length)
+const bool testSort(int arr[], long length)
 {
     bool isWellSorted = true;
     for (unsigned i = 1; i < length; i++)
     {
-        if (arr[i + 1] < arr[i])
+        if (arr[i] < arr[i - 1])
         {
             isWellSorted = false;
-            std::cout << "At index: " << i << "\t" << arr[i + 1] << " < " << arr[i] << std::endl;
+            std::cout << "At index: " << i << "\t" << arr[i] << " < " << arr[i - 1] << std::endl;
         }
     }
     return isWellSorted;
@@ -127,13 +127,13 @@ const bool testSort(int arr[], const unsigned length)
 
 void testSortAlgorithm(int algo_enum, bool isVector);
 
-void selectionSort(int arr[], int length);
-void bubbleSort(int arr[], int length);
-void insertionSort(int arr[], int length);
-void mergeSort(int arr[], const int first, const int last);
-inline void merge(int arr[], const int first, const int middle, const int last);
-void quickSort(int arr[], const int first, const int last);
-inline const int partition(int arr[], int first, int last);
+void selectionSort(int arr[], const long length);
+void bubbleSort(int arr[], const long length);
+void insertionSort(int arr[], const long length);
+void mergeSort(int arr[], long first, long last);
+inline void merge(int arr[], const long first, const long middle, const long last);
+void quickSort(int arr[], const long first, const long last);
+inline const long partition(int arr[], const long first, const long last);
 
 void selectionSort(std::vector<int> &vec);                                        // 148.713 ms
 void bubbleSort(std::vector<int> &vec);                                           // 251.325 ms
